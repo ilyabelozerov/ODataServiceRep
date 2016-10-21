@@ -6,12 +6,13 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using ODataService.DAL;
 
 namespace ProductService.Controllers
 {
     public class ProductsController : ODataController
     {
-        ProductsContext db = new ProductsContext();
+        MainDbContext db = new MainDbContext();
         private bool ProductExists(int key)
         {
             return db.Products.Any(p => p.Id == key);
