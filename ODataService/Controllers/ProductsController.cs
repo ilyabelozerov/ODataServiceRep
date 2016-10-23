@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
 using ODataService.DAL;
+using System.Web.Http.Cors;
 
 namespace ProductService.Controllers
 {

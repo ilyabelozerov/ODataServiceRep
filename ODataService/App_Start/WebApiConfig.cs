@@ -6,6 +6,7 @@ using System.Web.Http;
 using ODataService.Models;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using System.Web.Http.Cors;
 
 namespace ODataService
 {
@@ -13,6 +14,10 @@ namespace ODataService
     {
         public static void Register(HttpConfiguration config)
         {
+            // Включить кросс-доменные запросы
+            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(corsAttr);
+
             // Конфигурация и службы веб-API
             ODataModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Product>("Products");
