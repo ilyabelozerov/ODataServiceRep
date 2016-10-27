@@ -18,8 +18,10 @@ namespace ODataService
             var corsAttr = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(corsAttr);
 
+            config.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
+
             // Конфигурация и службы веб-API
-            ODataModelBuilder builder = new ODataConventionModelBuilder();
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Product>("Products");
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",

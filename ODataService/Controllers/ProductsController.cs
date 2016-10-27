@@ -1,13 +1,13 @@
-﻿using ODataService.Models;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 using ODataService.DAL;
-using System.Web.Http.Cors;
+using ODataService.Models;
 
 namespace ProductService.Controllers
 {
@@ -24,12 +24,11 @@ namespace ProductService.Controllers
             base.Dispose(disposing);
         }
 
-        [EnableQuery]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All, MaxTop = 1000, PageSize = 20)]
         public IQueryable<Product> Get()
         {
             return db.Products;
         }
-
         [EnableQuery]
         public SingleResult<Product> Get([FromODataUri] int key)
         {
@@ -106,6 +105,7 @@ namespace ProductService.Controllers
             return Updated(update);
         }
 
+
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
             var product = await db.Products.FindAsync(key);
@@ -117,6 +117,5 @@ namespace ProductService.Controllers
             await db.SaveChangesAsync();
             return StatusCode(HttpStatusCode.NoContent);
         }
-
     }
 }
